@@ -45,7 +45,11 @@ public class UserManager {
 
         return new ArrayList<>();
     }
+    public static boolean adminLogin(String username, String password) {
 
+        return username.equals("admin")
+                && password.equals("admin123");
+    }
     public static void saveUsers(ArrayList<User> users){
 
         try{

@@ -278,6 +278,14 @@ public class LoginInterface extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,
                     "Login Successful!");
 
+        }
+        else if(UserManager.adminLogin(username, password)) {
+            JOptionPane.showMessageDialog(this,
+                        "Login Successful!");
+            Administrator admin = new Administrator();
+            admin.setVisible(true);
+            dispose();
+            
         } else {
 
             JOptionPane.showMessageDialog(this,
