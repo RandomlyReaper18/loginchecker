@@ -7,11 +7,12 @@ public class Attendance {
     private String loginTime;
     private String logoutTime;
     private String status;
+    private String name;
 
     public Attendance() {
     }
 
-    public Attendance(String username, String date,
+    public Attendance(String username, String name, String date,
                       String loginTime,
                       String logoutTime,
                       String status) {
@@ -21,6 +22,7 @@ public class Attendance {
         this.loginTime = loginTime;
         this.logoutTime = logoutTime;
         this.status = status;
+        this.name = name;
     }
 
     public String getUsername() {
@@ -42,7 +44,9 @@ public class Attendance {
     public String getStatus() {
         return status;
     }
-
+    public String getName() {
+        return name;
+    }
     public void setLogoutTime(String logoutTime) {
         this.logoutTime = logoutTime;
     }

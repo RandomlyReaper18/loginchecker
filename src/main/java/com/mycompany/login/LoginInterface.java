@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.login;
+import static com.mycompany.login.UserManager.loadUsers;
 import javax.swing.table.DefaultTableModel;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -229,7 +230,7 @@ public class LoginInterface extends javax.swing.JFrame {
         // TODO add your handling code here:
         String username = jTextField1.getText().trim();
         String password = String.valueOf(jPasswordField1.getPassword());
-
+        
         if (UserManager.login(username, password)) {
 
             String date = LocalDate.now()
@@ -262,9 +263,21 @@ public class LoginInterface extends javax.swing.JFrame {
                 loadTodayAttendance();
                 return;
             }
+            String fullName = "";
 
+            ArrayList<User> users = UserManager.loadUsers();
+
+            for (User u : users) {
+
+                if (u.getUsername().equals(username)) {
+
+                    fullName = u.getName();
+                    break;
+                }
+            }
             attendance.add(new Attendance(
                     username,
+                    fullName,
                     date,
                     loginTime,
                     "",
@@ -279,7 +292,7 @@ public class LoginInterface extends javax.swing.JFrame {
                     "Login Successful!");
 
         }
-        else if(UserManager.adminLogin(username, password)) {
+        if(UserManager.adminLogin(username, password)) {
             JOptionPane.showMessageDialog(this,
                         "Login Successful!");
             Administrator admin = new Administrator();

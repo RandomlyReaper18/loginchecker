@@ -13,8 +13,6 @@ import javax.swing.JFrame;
 public class Login {
 
     public static void main(String[] args) {
-        
-        
         System.out.println("Hello World!");
         LoginInterface LoginFrame = new LoginInterface();
         LoginFrame.setVisible(true);
