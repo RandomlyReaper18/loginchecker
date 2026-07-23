@@ -27,6 +27,7 @@ public class Administrator extends javax.swing.JFrame {
         initComponents();
         setResizable(true);
         setLocationRelativeTo(null);
+        setTitle("Attendance Management System");
         setMinimumSize(new java.awt.Dimension(900, 600));
         jTable1.setFillsViewportHeight(true);
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -60,7 +61,11 @@ public class Administrator extends javax.swing.JFrame {
         clock.start();
         
         Timer refreshTimer = new Timer(1000, e -> {
-            loadTodayAttendance();
+
+            if (jTable1.getSelectedRow() == -1) {
+                loadTodayAttendance();
+            }
+
         });
 
         refreshTimer.start();
@@ -132,6 +137,7 @@ public class Administrator extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,6 +200,9 @@ public class Administrator extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel4.setText("2");
 
+        jButton4.setText("Login");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,6 +224,8 @@ public class Administrator extends javax.swing.JFrame {
                                 .addComponent(jButton2)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3)
+                                .addGap(26, 26, 26)
+                                .addComponent(jButton4)
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1)
@@ -237,7 +248,8 @@ public class Administrator extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,38 +305,28 @@ public class Administrator extends javax.swing.JFrame {
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-
-        String username = model.getValueAt(row, 0).toString();
-        String date = model.getValueAt(row, 2).toString(); // Date column
+        String username = jTable1.getValueAt(row, 0).toString();
 
         ArrayList<Attendance> attendance = AttendanceManager.loadAttendance();
 
-        boolean removed = false;
-
-        for (int i = 0; i < attendance.size(); i++) {
-
-            Attendance a = attendance.get(i);
-
-            if (a.getUsername().equals(username)
-                    && a.getDate().equals(date)
-                    && a.getStatus().equals("Logged In")) {
-
-                attendance.remove(i);
-                removed = true;
-                break;
-            }
-        }
+        boolean removed = attendance.removeIf(a ->
+                a.getUsername().equals(username)
+                && a.getStatus().equals("Logged In"));
 
         if (removed) {
+
             AttendanceManager.saveAttendance(attendance);
+
             loadTodayAttendance();
 
             JOptionPane.showMessageDialog(this,
                     "User logged out successfully.");
+
         } else {
+
             JOptionPane.showMessageDialog(this,
                     "User not found.");
+
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -372,6 +374,13 @@ public class Administrator extends javax.swing.JFrame {
         loadTodayAttendance();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        LoginInterface LoginFrame = new LoginInterface();
+        LoginFrame.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -401,6 +410,7 @@ public class Administrator extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

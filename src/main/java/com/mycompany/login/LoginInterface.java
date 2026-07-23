@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
+import javax.swing.ImageIcon;
 /**
  *
  * @author PC2
@@ -28,7 +28,12 @@ public class LoginInterface extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         setTitle("Attendance Management System");
         DefaultTableModel model = new DefaultTableModel();
+        java.net.URL location = getClass().getResource("/com/mycompany/login/images/Icon.png");
 
+        System.out.println(location);
+        setIconImage(new ImageIcon(
+        getClass().getResource("/com/mycompany/login/images/Icon.png")
+).getImage());
         model.setColumnIdentifiers(new String[]{
             "Username",
             "Date",
@@ -151,7 +156,7 @@ public class LoginInterface extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,6 +256,8 @@ public class LoginInterface extends javax.swing.JFrame {
                         && a.getStatus().equals("Logged In")) {
 
                     alreadyLoggedIn = true;
+                    jTextField1.setText("");
+                    jPasswordField1.setText("");
                     break;
                 }
             }
@@ -292,7 +299,7 @@ public class LoginInterface extends javax.swing.JFrame {
                     "Login Successful!");
 
         }
-        if(UserManager.adminLogin(username, password)) {
+        else if(UserManager.adminLogin(username, password)) {
             JOptionPane.showMessageDialog(this,
                         "Login Successful!");
             Administrator admin = new Administrator();

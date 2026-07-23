@@ -24,6 +24,7 @@ public class Signup extends javax.swing.JFrame {
     public Signup() {
         initComponents();
         this.setLocationRelativeTo(null);
+        setTitle("Attendance Management System");
         DefaultTableModel model = new DefaultTableModel();
         setTitle("Attendance Management System");
         model.addColumn("Username");
@@ -117,9 +118,7 @@ public class Signup extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel5)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                        .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -134,6 +133,10 @@ public class Signup extends javax.swing.JFrame {
                         .addGap(57, 57, 57)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(170, 170, 170))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,10 +219,10 @@ public class Signup extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String username = jTextField1.getText();
+        String username = jTextField2.getText();
         String password = String.valueOf(jPasswordField1.getPassword());
         String confirm = String.valueOf(jPasswordField2.getPassword());
-        String name = String.valueOf(jTextField2.getText());
+        String name = String.valueOf(jTextField1.getText());
         if(username.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this,"Fill all fields");
             return;
