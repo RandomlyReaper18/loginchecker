@@ -35,7 +35,42 @@ public class Signup extends javax.swing.JFrame {
 
         jTable1.setModel(model);
     }
+    private boolean isStrongPassword(String password){
 
+        if(password.length() < 8){
+            return false;
+        }
+
+        boolean hasUpper = false;
+        boolean hasLower = false;
+        boolean hasNumber = false;
+        boolean hasSpecial = false;
+
+
+        for(char c : password.toCharArray()){
+
+            if(Character.isUpperCase(c)){
+                hasUpper = true;
+            }
+
+            else if(Character.isLowerCase(c)){
+                hasLower = true;
+            }
+
+            else if(Character.isDigit(c)){
+                hasNumber = true;
+            }
+
+            else{
+                hasSpecial = true;
+            }
+
+        }
+
+
+        return hasUpper && hasLower && hasNumber && hasSpecial;
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,7 +242,7 @@ public class Signup extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
         
-        
+         
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -223,8 +258,26 @@ public class Signup extends javax.swing.JFrame {
         String password = String.valueOf(jPasswordField1.getPassword());
         String confirm = String.valueOf(jPasswordField2.getPassword());
         String name = String.valueOf(jTextField1.getText());
-        if(username.isEmpty() || password.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Fill all fields");
+        if(username.isEmpty() || password.isEmpty() || name.isEmpty()){
+
+            JOptionPane.showMessageDialog(this,
+                    "Fill all fields");
+
+            return;
+        }
+
+
+        // Strong password check
+        if(!isStrongPassword(password)){
+
+            JOptionPane.showMessageDialog(this,
+                    "Password must contain:\n\n"
+                    + "- Minimum 8 characters\n"
+                    + "- At least 1 uppercase letter\n"
+                    + "- At least 1 lowercase letter\n"
+                    + "- At least 1 number\n"
+                    + "- At least 1 special character");
+
             return;
         }
 

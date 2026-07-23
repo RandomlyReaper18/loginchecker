@@ -15,7 +15,7 @@
   <manifest></manifest>
   <icon>C:\Users\Administrator\Downloads\Icon.ico</icon>
   <jre>
-    <path>%JAVA_HOME%;%PATH%</path>
+    <path>C:\Program Files (x86)\Java\jre1.8.0_441</path>
     <requiresJdk>false</requiresJdk>
     <requires64Bit>false</requires64Bit>
     <minVersion></minVersion>

@@ -43,8 +43,12 @@ public class LoginInterface extends javax.swing.JFrame {
         });
 
         jTable1.setModel(model);
-        loadTodayAttendance();
         
+        loadTodayAttendance();
+        jPasswordField1.addActionListener(e -> {
+        jButton1.doClick();
+        });
+
     }
     private void loadTodayAttendance(){
         DefaultTableModel model =
@@ -256,8 +260,6 @@ public class LoginInterface extends javax.swing.JFrame {
                         && a.getStatus().equals("Logged In")) {
 
                     alreadyLoggedIn = true;
-                    jTextField1.setText("");
-                    jPasswordField1.setText("");
                     break;
                 }
             }
@@ -282,19 +284,42 @@ public class LoginInterface extends javax.swing.JFrame {
                     break;
                 }
             }
+            String attendanceStatus;
+
+
+            LocalTime currentTime = LocalTime.now();
+
+            LocalTime limit =
+                    LocalTime.of(8,0);
+
+
+            if(currentTime.isAfter(limit)){
+
+                attendanceStatus = "Late";
+
+            }else{
+
+                attendanceStatus = "Present";
+
+            }
+
+
+
             attendance.add(new Attendance(
                     username,
                     fullName,
                     date,
                     loginTime,
                     "",
-                    "Logged In"
+                    "Logged In",
+                    attendanceStatus
             ));
 
             AttendanceManager.saveAttendance(attendance);
 
             loadTodayAttendance();
-
+            jTextField1.setText("");
+            jPasswordField1.setText("");
             JOptionPane.showMessageDialog(this,
                     "Login Successful!");
 
